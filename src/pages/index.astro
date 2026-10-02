@@ -1,0 +1,518 @@
+---
+// ANS DataTech tanıtım sayfası
+// İçerikler aşağıdaki dizilerde (array) tutulur. Metni değiştirmek için HTML'e değil, buraya dokunun.
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const contact = {
+  phone: '0536 921 00 61',
+  email: 'ansdatatech@gmail.com',
+  web: 'ansdatatech.com',
+  instagram: 'ansdatatech',
+  location: 'Ankara, Türkiye',
+  demoUrl: 'https://rezervasyon-demo.ansdatatech.com/',
+};
+
+const navLinks = [
+  { href: '#hizmetler', label: 'Hizmetler' },
+  { href: '#surec', label: 'Çalışma Modeli' },
+  { href: '#ornek', label: 'Örnek Çalışma' },
+  { href: '#iletisim', label: 'İletişim' },
+];
+
+const pillars = ['Akademik istatistik disiplini', 'Modern web teknolojileri', 'Anahtar teslim destek'];
+
+const iconAttrs =
+  'viewBox="0 0 24 24" fill="none" stroke="#6FA8E6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"';
+
+const services = [
+  {
+    title: 'Ultra Hızlı Kurumsal Web',
+    text: 'Hantal altyapılar yerine milisaniyeler içinde açılan, arama motorlarında üst sıralara çıkan, mobil uyumlu kurumsal siteler kuruyoruz.',
+    points: ['Hızlı açılan kurumsal vitrin', 'Arama motoru uyumu (SEO)', 'Telefon ve tablette kusursuz görünüm'],
+    tags: ['Astro', 'Modern Web'],
+    icon: `<svg ${iconAttrs}><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 8h18M8 21h8M12 18v3"/><path d="M13 11l-2 3h3l-2 3"/></svg>`,
+  },
+  {
+    title: 'Özel Web Uygulamaları & SaaS',
+    text: 'İç operasyonunuzu otomatikleştiren, tek ekrandan yönetilen ve işiniz büyüdükçe büyüyen bulut platformları geliştiriyoruz.',
+    points: ['Rezervasyon ve randevu yönetimi', 'Üyelik, kura ve fikstür sistemleri', 'Süreç ve iş akışı yönetimi'],
+    tags: ['Django', 'Python', 'Bulut'],
+    icon: `<svg ${iconAttrs}><path d="M7 18a4 4 0 1 1 .6-7.96A6 6 0 0 1 19 11a3.5 3.5 0 0 1-1 6.9"/><rect x="9" y="13" width="6" height="7" rx="1"/><path d="M11 16h2"/></svg>`,
+  },
+  {
+    title: 'Veri Analitiği & İş Zekâsı',
+    text: 'Ham veri yığınlarını stratejik kararlara dönüştürüyor, yöneticilerin tek bakışta okuyabileceği karar destek panelleri hazırlıyoruz.',
+    points: ['Trend analizleri ve demografik projeksiyonlar', 'Anket tasarımı ve modelleme', 'İnteraktif yönetim panelleri (dashboard)'],
+    tags: ['R', 'Python', 'Tableau', 'SPSS'],
+    icon: `<svg ${iconAttrs}><path d="M4 20V4M4 20h16"/><circle cx="8" cy="15" r="1.2"/><circle cx="11" cy="12" r="1.2"/><circle cx="14" cy="13" r="1.2"/><circle cx="17" cy="8" r="1.2"/><path d="M7 17l12-10"/></svg>`,
+  },
+];
+
+const steps = [
+  { title: 'İhtiyaç & Süreç Analizi', text: 'İşletmenizin operasyonel tıkanıklıklarını ve dijital hedeflerini birlikte masaya yatırırız.' },
+  { title: 'Mimari & Tasarım', text: 'Markanıza özel arayüz tasarımını (UX/UI) ve veri yapısını kurgularız.' },
+  { title: 'Geliştirme & Test', text: 'Kodlama, güvenlik testleri ve hız optimizasyonunu tamamlarız.' },
+  { title: 'Anahtar Teslim & Destek', text: 'Yayına alma, alan adı ve sunucu ayarları ile kesintisiz bakımı biz yürütürüz.' },
+];
+
+const showcaseFeatures = [
+  'Günlük kort ve saat tablosu, tek tıkla rezervasyon',
+  'Kaydederken müşteriye WhatsApp bildirimi',
+  'Yönetici, sekreter ve antrenör için ayrı yetkiler',
+  'Telefondan uygulama gibi kullanım, istatistik ekranı',
+];
+
+// Örnek takvim (gerçek müşteri verisi değildir)
+type Slot = { kind: 'kira' | 'ders' | 'online' | 'free'; label?: string; note?: string };
+const calendarCourts = ['KORT 1', 'KORT 2', 'KORT 3'];
+const calendarRows: { time: string; slots: Slot[] }[] = [
+  { time: '08:00', slots: [{ kind: 'ders', label: 'Özel ders', note: 'Antrenör' }, { kind: 'free' }, { kind: 'kira', label: 'Kort kirası', note: 'Onaylı' }] },
+  { time: '09:00', slots: [{ kind: 'free' }, { kind: 'kira', label: 'Kort kirası', note: 'Onaylı' }, { kind: 'free' }] },
+  { time: '10:00', slots: [{ kind: 'online', label: 'Online talep', note: 'Onay bekliyor' }, { kind: 'ders', label: 'Grup dersi', note: 'Antrenör' }, { kind: 'free' }] },
+  { time: '11:00', slots: [{ kind: 'free' }, { kind: 'free' }, { kind: 'ders', label: 'Özel ders', note: 'Antrenör' }] },
+];
+const legend = [
+  { color: '#6FA8E6', label: 'Kiralama' },
+  { color: '#58C6A4', label: 'Antrenman' },
+  { color: '#F0A646', label: 'Online talep' },
+  { color: '#2C5485', label: 'Boş saat' },
+];
+
+const year = new Date().getFullYear();
+---
+
+<BaseLayout>
+  <nav class="nav" aria-label="Ana menü">
+    <div class="wrap">
+      <a class="brand" href="#top"><img src="/ans-logo.png" alt="" width="23" height="34" />ANS <span>DataTech.</span></a>
+      <ul>
+        {navLinks.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+      <a class="btn btn-primary btn-sm" href="#iletisim">Teklif Alın</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <svg class="circuit" data-seed="11" data-density="38000" aria-hidden="true"></svg>
+    <div class="wrap">
+      <div>
+        <span class="eyebrow">Teknoloji &amp; Veri Stüdyosu · Ankara</span>
+        <h1>Verinin Gücü,<br /><em>Web’in Hızı.</em></h1>
+        <p class="lead">
+          İşletmenizin günlük operasyonunu dijitale taşıyan yazılımlar geliştiriyor, verilerinizi karar almanızı hızlandıran
+          raporlara dönüştürüyoruz.
+        </p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#iletisim">Projeniz için teklif alın</a>
+          <a class="btn btn-ghost" href="#hizmetler">Hizmetlerimiz</a>
+        </div>
+        <ul class="pillars">
+          {pillars.map((p) => <li>{p}</li>)}
+        </ul>
+      </div>
+      <div class="owlwrap">
+        <span class="ring"></span><span class="ring r2"></span>
+        <img src="/ans-logo.png" alt="ANS DataTech baykuş logosu" width="300" height="448" />
+      </div>
+    </div>
+  </header>
+
+  <section class="about" aria-label="Hakkımızda">
+    <div class="wrap">
+      <span class="eyebrow">Biz kimiz?</span>
+      <p>
+        ANS DataTech; karmaşık veri yapılarını ve <b>akademik istatistik</b> birikimini, <b>ultra hızlı ve modern web teknolojileriyle</b>
+        buluşturan yeni nesil bir teknoloji ve veri stüdyosudur. Hazır kalıplar yerine, işletmenize özel çözümler üretiyoruz.
+      </p>
+    </div>
+  </section>
+
+  <section class="sec" id="hizmetler">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Hizmetlerimiz</span>
+        <h2>Üç alanda uçtan uca çözüm</h2>
+        <p class="lead">Web sitenizden iç operasyon yazılımınıza, verinizin analizine kadar tek bir ekiple çalışırsınız.</p>
+      </div>
+      <div class="services">
+        {
+          services.map((s) => (
+            <article class="svc">
+              <div class="ico" set:html={s.icon} />
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+              <ul>
+                {s.points.map((p) => <li>{p}</li>)}
+              </ul>
+              <div class="tags">
+                {s.tags.map((t) => <span>{t}</span>)}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="sec process" id="surec">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Çalışma Modelimiz</span>
+        <h2>Dört adımda çözüm</h2>
+        <p class="lead">Her projede aynı şeffaf yolu izleriz. Ne zaman ne olacağını baştan bilirsiniz.</p>
+      </div>
+      <ol class="steps">
+        {
+          steps.map((st, i) => (
+            <li>
+              <span class="num">{String(i + 1).padStart(2, '0')}</span>
+              <h3>{st.title}</h3>
+              <p>{st.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" id="ornek">
+    <div class="wrap show">
+      <div>
+        <span class="eyebrow">Örnek Çalışma</span>
+        <h2 class="show-title">Bulut tabanlı rezervasyon sistemi</h2>
+        <p class="lead">
+          Spor tesisleri için geliştirdiğimiz sistemde kort doluluğu, müşteri rehberi ve personel yetkileri tek ekrandan yönetiliyor.
+        </p>
+        <ul class="feat">
+          {
+            showcaseFeatures.map((f) => (
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="#6FA8E6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12l5 5L19 7" />
+                </svg>
+                <span>{f}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <a class="btn btn-ghost" href={contact.demoUrl} target="_blank" rel="noopener">Canlı demoyu inceleyin ↗</a>
+      </div>
+
+      <figure class="mock" aria-label="Rezervasyon ekranı örneği">
+        <div class="bar">
+          <span class="dots"><i></i><i></i><i></i></span><b>Perşembe · Günlük Takvim</b><span>örnek görünüm</span>
+        </div>
+        <div class="gridwrap">
+          <table class="cal">
+            <thead>
+              <tr>
+                <th>SAAT</th>
+                {calendarCourts.map((c) => <th>{c}</th>)}
+              </tr>
+            </thead>
+            <tbody>
+              {
+                calendarRows.map((row) => (
+                  <tr>
+                    <td class="t">{row.time}</td>
+                    {row.slots.map((slot) => (
+                      <td>
+                        {slot.kind === 'free' ? (
+                          <span class="slot s-free">+</span>
+                        ) : (
+                          <span class={`slot s-${slot.kind}`}>
+                            {slot.label}
+                            <small>{slot.note}</small>
+                          </span>
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+        <figcaption class="foot">
+          {legend.map((l) => <span><i style={`background:${l.color}`}></i>{l.label}</span>)}
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="sec contact" id="iletisim">
+    <svg class="circuit" data-seed="29" data-density="52000" aria-hidden="true"></svg>
+    <div class="wrap">
+      <div class="sec-head flush">
+        <span class="eyebrow">İletişim &amp; Teklif</span>
+        <h2>Dijital operasyonunuzu bir üst seviyeye taşıyalım</h2>
+        <p class="lead">Projenizi kısaca anlatın, işletmenize özel teklifimizi hazırlayalım.</p>
+      </div>
+      <ul class="clist">
+        <li>
+          <span class="k">Telefon</span>
+          <a class="v" href={`tel:+90${contact.phone.replace(/\s/g, '').slice(1)}`}>{contact.phone}</a>
+          <button class="copy" type="button" data-copy={contact.phone}>Kopyala</button>
+        </li>
+        <li>
+          <span class="k">E-posta</span>
+          <a class="v" href={`mailto:${contact.email}`}>{contact.email}</a>
+          <button class="copy" type="button" data-copy={contact.email}>Kopyala</button>
+        </li>
+        <li>
+          <span class="k">Web</span>
+          <a class="v" href={`https://${contact.web}`}>{contact.web}</a><span></span>
+        </li>
+        <li>
+          <span class="k">Instagram</span>
+          <a class="v" href={`https://instagram.com/${contact.instagram}`} target="_blank" rel="noopener">@{contact.instagram}</a><span></span>
+        </li>
+        <li><span class="k">Konum</span><span class="v">{contact.location}</span><span></span></li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap"><span>© {year} ANS DataTech · Ankara</span><span>Verinin Gücü, Web’in Hızı.</span></div>
+  </footer>
+</BaseLayout>
+
+<script>
+  // Devre çizgisi arka planı (kartvizit ve kapak sayfasındaki desen)
+  function drawCircuit(svg: SVGSVGElement) {
+    const seedStart = Number(svg.dataset.seed ?? 11);
+    const density = Number(svg.dataset.density ?? 40000);
+    const box = svg.getBoundingClientRect();
+    const W = Math.max(360, box.width);
+    const H = Math.max(300, box.height);
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+
+    let s = seedStart;
+    const r = () => {
+      s = (s * 16807) % 2147483647;
+      return s / 2147483647;
+    };
+
+    let out = '';
+    let pulses = '';
+    const n = Math.round((W * H) / density);
+    for (let i = 0; i < n; i++) {
+      const fromLeft = r() < 0.5;
+      let y = Math.round((r() * H) / 20) * 20;
+      let x = fromLeft ? -10 : W + 10;
+      let d = `M${x} ${y}`;
+      const steps = 2 + Math.floor(r() * 3);
+      const dir = fromLeft ? 1 : -1;
+      for (let k = 0; k < steps; k++) {
+        x += dir * (60 + r() * W * 0.16);
+        d += ` H${x.toFixed(0)}`;
+        if (k < steps - 1) {
+          const dy = (r() < 0.5 ? -1 : 1) * 20 * (1 + Math.floor(r() * 2));
+          x += dir * Math.abs(dy);
+          y += dy;
+          d += ` L${x.toFixed(0)} ${y}`;
+        }
+      }
+      out += `<path d="${d}" fill="none" stroke="#1F3A5E" stroke-width="1.5"/>`;
+      out += `<circle cx="${x.toFixed(0)}" cy="${y}" r="3.5" fill="${r() < 0.18 ? '#6FA8E6' : '#2C5485'}"/>`;
+      // Her devre çizgisinin üzerinde bir ışık dolaşır
+      pulses += `<path class="pulse" d="${d}"/>`;
+    }
+    svg.innerHTML = out + pulses;
+    animatePulses(svg, r);
+  }
+
+  // Işıkları çizginin gerçek uzunluğuna göre, sabit hızla hareket ettirir.
+  // (Eski sürümde ışık sadece rastgele seçilen çizgilerde vardı; bu yüzden bazı çizgiler duruyordu.)
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function animatePulses(svg: SVGSVGElement, r: () => number) {
+    if (reduceMotion) return;
+    const SPEED = 170; // piksel / saniye
+    svg.querySelectorAll<SVGPathElement>('path.pulse').forEach((p) => {
+      const len = p.getTotalLength();
+      const dash = 14;
+      p.style.strokeDasharray = `${dash} ${len + dash}`;
+      const duration = ((len + dash) / SPEED) * 1000;
+      p.animate([{ strokeDashoffset: len + dash }, { strokeDashoffset: 0 }], {
+        duration,
+        iterations: Infinity,
+        delay: -r() * duration, // her ışık farklı noktadan başlar
+        easing: 'linear',
+      });
+    });
+  }
+
+  const circuits = Array.from(document.querySelectorAll<SVGSVGElement>('svg.circuit'));
+  const drawAll = () => circuits.forEach(drawCircuit);
+  drawAll();
+  let resizeTimer: number | undefined;
+  window.addEventListener('resize', () => {
+    window.clearTimeout(resizeTimer);
+    resizeTimer = window.setTimeout(drawAll, 200);
+  });
+
+  // "Kopyala" butonları
+  document.querySelectorAll<HTMLButtonElement>('.copy').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const text = btn.dataset.copy ?? '';
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = 'Kopyalandı';
+      } catch {
+        btn.textContent = 'Kopyalanamadı';
+      }
+      window.setTimeout(() => (btn.textContent = 'Kopyala'), 1600);
+    });
+  });
+</script>
+
+<style is:global>
+  /* is:global kullanıldı: devre çizgileri JavaScript ile sonradan eklendiği için
+     Astro'nun bileşene özel (scoped) stilleri onlara uygulanmaz. */
+  .wrap { max-width: 1120px; margin: 0 auto; padding-inline: 20px; }
+  .eyebrow { font-family: var(--mono); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--sky); }
+  h1, h2, h3 { font-family: var(--display); font-weight: 700; letter-spacing: .005em; text-wrap: balance; margin: 0; }
+  h2 { font-size: clamp(32px, 5vw, 48px); line-height: 1.05; }
+  .lead { color: var(--sub); max-width: 62ch; margin: 0; }
+  section { position: relative; }
+  .sec { padding-block: 88px; }
+  .sec-head { display: grid; gap: 14px; margin-bottom: 44px; }
+  .sec-head.flush { margin: 0; }
+
+  /* Menü */
+  .nav { position: sticky; top: 0; z-index: 20; background: rgba(11, 24, 41, .82); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--display); font-weight: 700; font-size: 22px; white-space: nowrap; }
+  .brand img { height: 34px; width: auto; }
+  .brand span { color: var(--sky); }
+  .nav ul { display: flex; gap: 26px; list-style: none; margin: 0; padding: 0; font-size: 14px; color: var(--sub); }
+  .nav ul a { text-decoration: none; }
+  .nav ul a:hover { color: var(--ink); }
+  @media (max-width: 760px) { .nav ul { display: none; } }
+
+  /* Butonlar */
+  .btn { display: inline-flex; align-items: center; gap: 10px; font: 600 15px var(--sans); text-decoration: none; border-radius: 8px; padding: 13px 20px; border: 1px solid transparent; cursor: pointer; transition: background .2s, border-color .2s, transform .2s; }
+  .btn-primary { background: var(--blue); color: #fff; }
+  .btn-primary:hover { background: #3f84cc; transform: translateY(-1px); }
+  .btn-ghost { border-color: var(--trace-hi); color: var(--ink); background: rgba(19, 38, 63, .6); }
+  .btn-ghost:hover { border-color: var(--sky); }
+  .btn-sm { padding: 9px 14px; font-size: 14px; }
+  .btn:focus-visible, a:focus-visible, button:focus-visible { outline: 2px solid var(--sky); outline-offset: 3px; }
+
+  /* Giriş (hero) */
+  .hero { position: relative; overflow: hidden; background: radial-gradient(ellipse 70% 60% at 72% 42%, rgba(54, 118, 185, .22), transparent 70%), linear-gradient(180deg, var(--navy), var(--night)); }
+  .circuit { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  /* Hareketli ışık: uzunluğu ve animasyonu JavaScript ayarlar */
+  .circuit .pulse { stroke: var(--sky); stroke-width: 2; fill: none; stroke-dasharray: 0 100000; stroke-linecap: round; opacity: .85; }
+  @media (prefers-reduced-motion: reduce) { .circuit .pulse { opacity: 0; } }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(11, 24, 41, .78) 0%, rgba(11, 24, 41, .35) 45%, transparent 70%); pointer-events: none; }
+  .hero .wrap { position: relative; z-index: 1; display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; gap: 40px; padding-block: 84px 96px; }
+  .hero h1 { font-size: clamp(46px, 8vw, 92px); line-height: .98; margin: 18px 0 22px; }
+  .hero h1 em { font-style: normal; color: var(--sky); }
+  .hero .lead { font-size: 18px; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .pillars { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 36px 0 0; padding: 0; list-style: none; font-family: var(--mono); font-size: 13px; color: var(--sub); }
+  .pillars li { display: flex; align-items: center; gap: 8px; }
+  .pillars li::before { content: ""; width: 6px; height: 6px; border-radius: 1px; background: var(--sky); }
+  .owlwrap { position: relative; display: grid; place-items: center; }
+  .owlwrap .ring { position: absolute; width: min(420px, 90%); aspect-ratio: 1; border-radius: 50%; border: 1px solid var(--trace-hi); opacity: .55; }
+  .owlwrap .ring.r2 { width: min(320px, 70%); border-style: dashed; opacity: .35; }
+  .owlwrap img { position: relative; width: min(300px, 70%); height: auto; filter: drop-shadow(0 24px 40px rgba(0, 0, 0, .5)) drop-shadow(0 0 30px rgba(111, 168, 230, .18)); }
+  @media (max-width: 860px) {
+    .hero .wrap { grid-template-columns: 1fr; padding-block: 56px 64px; }
+    .owlwrap { order: -1; }
+    .owlwrap img { width: min(190px, 50%); }
+    .owlwrap .ring { width: min(260px, 70%); }
+    .owlwrap .ring.r2 { width: min(200px, 54%); }
+  }
+
+  /* Hakkımızda */
+  .about { background: var(--navy); border-block: 1px solid var(--line); }
+  .about .wrap { display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: start; padding-block: 48px; }
+  .about p { margin: 0; font-size: clamp(18px, 2.2vw, 22px); line-height: 1.5; max-width: 60ch; color: var(--ink); }
+  .about p b { color: var(--sky); font-weight: 500; }
+  @media (max-width: 700px) { .about .wrap { grid-template-columns: 1fr; gap: 12px; } }
+
+  /* Hizmetler */
+  .services { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--navy); }
+  .svc { padding: 30px 28px 32px; display: grid; gap: 14px; align-content: start; border-right: 1px solid var(--line); }
+  .svc:last-child { border-right: 0; }
+  .svc .ico { width: 44px; height: 44px; border-radius: 10px; background: var(--panel-2); border: 1px solid var(--trace-hi); display: grid; place-items: center; }
+  .svc .ico svg { width: 24px; height: 24px; }
+  .svc h3 { font-size: 28px; line-height: 1.1; }
+  .svc p { margin: 0; color: var(--sub); }
+  .svc ul { list-style: none; margin: 6px 0 0; padding: 14px 0 0; border-top: 1px dashed var(--line); display: grid; gap: 6px; font-size: 14.5px; }
+  .svc ul li { display: flex; gap: 10px; }
+  .svc ul li::before { content: "→"; color: var(--sky); font-family: var(--mono); }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .tags span { font-family: var(--mono); font-size: 12px; color: var(--ice); background: rgba(54, 118, 185, .14); border: 1px solid rgba(111, 168, 230, .28); padding: 3px 8px; border-radius: 5px; }
+  @media (max-width: 900px) {
+    .services { grid-template-columns: 1fr; }
+    .svc { border-right: 0; border-bottom: 1px solid var(--line); }
+    .svc:last-child { border-bottom: 0; }
+  }
+
+  /* Çalışma modeli */
+  .process { background: linear-gradient(180deg, var(--night), var(--navy)); }
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; position: relative; }
+  .steps::before { content: ""; position: absolute; left: 0; right: 0; top: 22px; height: 2px; background: linear-gradient(90deg, var(--blue), var(--trace-hi)); }
+  .steps li { position: relative; display: grid; gap: 10px; align-content: start; }
+  .steps .num { width: 46px; height: 46px; border-radius: 50%; background: var(--night); border: 2px solid var(--sky); display: grid; place-items: center; font-family: var(--mono); font-weight: 500; color: var(--sky); position: relative; }
+  .steps h3 { font-size: 24px; margin-top: 8px; }
+  .steps p { margin: 0; color: var(--sub); font-size: 15px; }
+  @media (max-width: 860px) {
+    .steps { grid-template-columns: 1fr; gap: 26px; }
+    .steps::before { left: 22px; right: auto; top: 0; bottom: 0; width: 2px; height: auto; background: linear-gradient(180deg, var(--blue), var(--trace-hi)); }
+    .steps li { grid-template-columns: 46px 1fr; column-gap: 18px; }
+    .steps li > *:not(.num) { grid-column: 2; }
+    .steps .num { grid-row: 1 / 4; }
+  }
+
+  /* Örnek çalışma */
+  .show { display: grid; grid-template-columns: .9fr 1.1fr; gap: 48px; align-items: center; }
+  .show-title { margin-top: 14px; }
+  .show .lead { margin-top: 4px; }
+  .feat { list-style: none; margin: 22px 0 28px; padding: 0; display: grid; gap: 10px; }
+  .feat li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; }
+  .feat li svg { width: 18px; height: 18px; margin-top: 4px; }
+  .mock { margin: 0; background: var(--panel); border: 1px solid var(--trace-hi); border-radius: 12px; box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .7); overflow: hidden; min-width: 0; }
+  .mock .bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 12.5px; color: var(--sub); }
+  .mock .bar b { color: var(--ink); font-weight: 500; }
+  .dots { display: flex; gap: 6px; }
+  .dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--trace-hi); }
+  .gridwrap { overflow-x: auto; }
+  .cal { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 420px; }
+  .cal th { font-family: var(--mono); font-weight: 500; font-size: 11.5px; letter-spacing: .08em; color: var(--sub); text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+  .cal td { padding: 6px; border-bottom: 1px solid var(--line); border-left: 1px solid var(--line); height: 46px; }
+  .cal td.t { font-family: var(--mono); color: var(--sub); border-left: 0; padding-left: 12px; width: 72px; font-variant-numeric: tabular-nums; }
+  .slot { display: block; border-radius: 6px; padding: 6px 9px; font-size: 12.5px; line-height: 1.25; }
+  .slot small { display: block; font-family: var(--mono); font-size: 10.5px; opacity: .8; }
+  .s-kira { background: rgba(54, 118, 185, .28); border-left: 3px solid var(--sky); }
+  .s-ders { background: rgba(64, 170, 140, .22); border-left: 3px solid #58c6a4; }
+  .s-online { background: rgba(240, 166, 70, .18); border-left: 3px solid #f0a646; }
+  .s-free { color: var(--faint); text-align: center; font-size: 18px; line-height: 30px; }
+  .mock .foot { display: flex; flex-wrap: wrap; gap: 14px; padding: 12px 16px; font-size: 12px; color: var(--sub); }
+  .mock .foot span { display: flex; align-items: center; gap: 6px; }
+  .mock .foot i { width: 10px; height: 10px; border-radius: 2px; display: block; }
+  @media (max-width: 900px) { .show { grid-template-columns: 1fr; } }
+
+  /* İletişim */
+  .contact { background: var(--navy); border-top: 1px solid var(--line); overflow: hidden; }
+  .contact .wrap { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  .clist { list-style: none; margin: 0; padding: 0; border: 1px solid var(--line); border-radius: 12px; background: rgba(11, 24, 41, .6); }
+  .clist li { display: grid; grid-template-columns: 96px 1fr auto; align-items: center; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--line); }
+  .clist li:last-child { border-bottom: 0; }
+  .clist .k { font-family: var(--mono); font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); }
+  .clist .v { font-size: 17px; font-weight: 500; overflow-wrap: anywhere; text-decoration: none; }
+  .clist a.v:hover { color: var(--sky); }
+  .copy { font: 500 12px var(--mono); color: var(--sub); background: transparent; border: 1px solid var(--trace-hi); border-radius: 6px; padding: 5px 9px; cursor: pointer; }
+  .copy:hover { color: var(--ink); border-color: var(--sky); }
+  @media (max-width: 860px) { .contact .wrap { grid-template-columns: 1fr; } }
+  @media (max-width: 460px) {
+    .clist li { grid-template-columns: 1fr auto; }
+    .clist .k { grid-column: 1 / -1; }
+  }
+
+  footer { border-top: 1px solid var(--line); padding-block: 26px; font-size: 13px; color: var(--faint); }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
+</style>

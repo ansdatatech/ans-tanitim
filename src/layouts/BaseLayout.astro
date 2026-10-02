@@ -1,0 +1,92 @@
+---
+// Tüm sayfalarda ortak olan iskelet: <head>, yazı tipleri, renkler (tasarım tokenları).
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'ANS DataTech | Verinin Gücü, Web’in Hızı',
+  description = 'ANS DataTech; kurumsal web siteleri, özel web uygulamaları (SaaS) ve veri analitiği hizmetleri sunan Ankara merkezli teknoloji ve veri stüdyosudur.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0B1829" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+
+    <!-- Sosyal medyada paylaşıldığında görünecek önizleme (Open Graph) -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="/ans-logo.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="tr_TR" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Antonio:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  /* Marka renkleri ve yazı tipleri: kartvizit ile aynı */
+  :root {
+    --night: #0b1829;
+    --navy: #0f2036;
+    --panel: #13263f;
+    --panel-2: #172e4b;
+    --trace: #1f3a5e;
+    --trace-hi: #2c5485;
+    --blue: #3676b9;
+    --sky: #6fa8e6;
+    --ice: #a9cbf0;
+    --ink: #eaf1f8;
+    --sub: #9db2c8;
+    --faint: #6f87a1;
+    --line: rgba(157, 178, 200, 0.16);
+    --display: 'Antonio', 'Oswald', 'Arial Narrow', sans-serif;
+    --sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+    color-scheme: dark;
+  }
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    margin: 0;
+    background: var(--night);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img {
+    max-width: 100%;
+  }
+  a {
+    color: inherit;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+</style>
