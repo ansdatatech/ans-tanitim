@@ -1,13 +1,18 @@
 ---
-// Tüm sayfalarda ortak olan iskelet: <head>, yazı tipleri, renkler (tasarım tokenları).
+// src/layouts/BaseLayout.astro
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
+  url?: string;
 }
 
 const {
-  title = 'ANS Yazılım & Veri Çözümleri | İşinizi Büyüten Teknoloji',
+  title = 'ANS Yazılım | İşinizi Büyüten Teknoloji',
   description = 'ANS Yazılım; kurumsal web siteleri, özel web uygulamaları (SaaS) ve veri analitiği hizmetleri sunan güvenilir teknoloji çözüm ortağınızdır.',
+  // WhatsApp'ta çıkacak kapak görselinin TAM ADRESİ:
+  image = 'https://tanitim.ansyazilim.com/og-image.jpg',
+  url = 'https://tanitim.ansyazilim.com/',
 } = Astro.props;
 ---
 
@@ -21,13 +26,25 @@ const {
     <meta name="theme-color" content="#f8fafc" />
     <link rel="icon" type="image/png" href="/logo_2.png" />
 
-    <!-- Sosyal medyada paylaşıldığında görünecek önizleme (Open Graph) -->
+    <!-- Open Graph (WhatsApp, LinkedIn, Facebook için Link Önizlemeleri) -->
+    <meta property="og:site_name" content="ANS Yazılım" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="https://www.ansyazilim.com/og-image.jpg" />
-    <meta property="og:url" content="https://www.ansyazilim.com/" />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:secure_url" content={image} />
+    <meta property="og:url" content={url} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="tr_TR" />
+    
+    <!-- WhatsApp'ın görseli hızlı okuması için boyut bildirimleri -->
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter / X Card Etiketleri -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -42,41 +59,29 @@ const {
 </html>
 
 <style is:global>
-  /* Aydınlık Tema (Light Theme) Marka Renkleri */
   :root {
-    --night: #f8fafc; /* Ana Zemin - Çok açık gri */
-    --navy: #ffffff;  /* Kutu Zeminleri - Beyaz */
+    --night: #f8fafc;
+    --navy: #ffffff;
     --panel: #ffffff;
-    --panel-2: #eff6ff; /* İkon Arka Planları - Açık mavi */
-    
-    --trace: #e2e8f0; /* Çizgiler ve Borderlar */
-    --trace-hi: #cbd5e1; /* Hover Borderlar */
-    
-    --blue: #2563eb; /* Birincil Butonlar ve Vurgular */
-    --sky: #3b82f6;  /* İkonlar ve Siber Devre */
-    --ice: #eff6ff;  /* Etiket (Tag) Arka Planı */
-    
-    --ink: #0f172a;  /* Ana Başlıklar - Koyu Gri/Siyah */
-    --sub: #475569;  /* Paragraf Metinleri */
-    --faint: #64748b; /* Pasif Metinler ve Tarihler */
-    
-    --line: rgba(0, 0, 0, 0.08); /* İnce ayrım çizgileri */
-    --shadow-soft: 0 10px 30px -10px rgba(0, 0, 0, 0.08); /* Kutu gölgeleri */
-
+    --panel-2: #eff6ff;
+    --trace: #e2e8f0;
+    --trace-hi: #cbd5e1;
+    --blue: #2563eb;
+    --sky: #3b82f6;
+    --ice: #eff6ff;
+    --ink: #0f172a;
+    --sub: #475569;
+    --faint: #64748b;
+    --line: rgba(0, 0, 0, 0.08);
+    --shadow-soft: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
     --display: 'Antonio', 'Oswald', 'Arial Narrow', sans-serif;
     --sans: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
     --mono: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
     color-scheme: light;
   }
   
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-  html {
-    scroll-behavior: smooth;
-  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
     margin: 0;
     background: var(--night);
@@ -86,15 +91,9 @@ const {
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
-  img {
-    max-width: 100%;
-  }
-  a {
-    color: inherit;
-  }
+  img { max-width: 100%; }
+  a { color: inherit; }
   @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
+    html { scroll-behavior: auto; }
   }
 </style>
